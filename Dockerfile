@@ -1,5 +1,9 @@
 FROM joeranbosma/picai_nndetection:1.3
 
+COPY requirements.txt /tmp/requirements.txt
+RUN python -m pip install -U pip \
+    && python -m pip install -r /tmp/requirements.txt
+
 RUN groupadd -r algorithm && useradd -m --no-log-init -r -g algorithm algorithm
 
 RUN mkdir -p /opt/algorithm /input /output /home/user/data \
@@ -35,7 +39,7 @@ COPY --chown=algorithm:algorithm results/ /opt/algorithm/results/
 # Copy the processor to the algorithm container folder
 COPY --chown=algorithm:algorithm process.py /opt/algorithm/
 
-ENTRYPOINT python -m process $0 $@
+ENTRYPOINT ["python", "-m", "process", "$0", "$@"]
 
 ## ALGORITHM LABELS ##
 

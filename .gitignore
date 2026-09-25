@@ -133,3 +133,7 @@ dmypy.json
 *.tar.gz
 .vscode/
 output/
+logs/
+results/oof
+results/nnDet
+*.sif
